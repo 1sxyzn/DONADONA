@@ -22,10 +22,12 @@ DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'donadona.User'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'donadona.apps.DonadonaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
