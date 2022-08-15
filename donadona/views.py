@@ -1,3 +1,10 @@
 from django.shortcuts import render
+from .models import *
 
-# Create your views here.
+
+def main(request):
+    return render(request, 'donadona/main.html')
+
+
+def manual(request):
+    return render(request, 'donadona/manual.html')
