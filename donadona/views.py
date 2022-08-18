@@ -8,3 +8,6 @@ def main(request):
 
 def manual(request):
     return render(request, 'donadona/manual.html')
+
+def mypage(request):
+    return render(request, 'donadona/mypage.html')
