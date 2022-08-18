@@ -47,7 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=20, unique=True)
     nickname = models.CharField(max_length=20)
-    email = models.EmailField(max_length=128, null=True)
+    email = models.EmailField(max_length=128, null=True, blank=True)
     phone = models.CharField(max_length=11, unique=True)
     alarm = models.BooleanField(default=False)
     hours = models.IntegerField(default=0)
