@@ -26,6 +26,7 @@ AUTH_USER_MODEL = 'donadona.User'
 # Application definition
 
 INSTALLED_APPS = [
+    'account.apps.AccountConfig',
     'donadona.apps.DonadonaConfig',
     'django.contrib.admin',
     'django.contrib.auth',
