@@ -14,6 +14,6 @@ def mypage(request):
     return render(request, 'donadona/mypage.html')
 
 
-def survey(request):
-    return render(request, 'donadona/survey.html')
+def userInfo(request):
+    return render(request, 'donadona/user-info.html')
 
