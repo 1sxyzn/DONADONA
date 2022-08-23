@@ -111,7 +111,7 @@ class Day(models.Model):
 
 class Time(models.Model):
     day = models.ForeignKey(Day, on_delete=models.CASCADE)
-    star_time = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(24)])
+    start_time = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(24)])
     end_time = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(24)])
 
 

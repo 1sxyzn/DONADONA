@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="text-center"><h2>Update Dates</h2></div>
+<div class="container my-3">
+    <form method="post" class="post-form" action="{% url 'donadona:day' %}">
+        {% csrf_token %}
+       <p>
+        <div class="form-group">
+            <label for="day">요일</label>
+            <br> {{form.day_week}}
+        </div></p>
+        <p>
+        <div class="form-group">
+            <label for="time">시간 <font color="gray">( 0~24 사이로 입력 )</font></label>
+            <br> {{ form.start_time }} 부터 {{ form.end_time }}
+        </div></p>
+        <button type="submit" class="btn btn-warning" >저장</button>
+    </form>
+</div>
+{% endblock %}
