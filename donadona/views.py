@@ -57,5 +57,17 @@ def userAddress(request):
 
 
 def userAbility(request):
-    form = UserAbilityForm()
-    return render(request, 'donadona/user_ability_form.html', {'form': form})
+    if request.method == 'POST':
+        form = UserAbilityForm(request.POST)
+        if form.is_valid():
+            able_category = request.POST['able_category']
+            able_detail = request.POST['able_detail']
+            user = request.user
+
+            user_able = Ability.objects.create(user=user, able_category=able_category)
+            user_able_detail = AbilityDetail.objects.create(ability=user_able, able_detail=able_detail)
+            return redirect('donadona:info')
+    else:
+        form = UserAbilityForm()
+    context = {'form': form}
+    return render(request, 'donadona/user_ability_form.html', context)
