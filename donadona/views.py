@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
+from .forms import *
 
 
 def main(request):
@@ -14,6 +15,47 @@ def mypage(request):
     return render(request, 'donadona/mypage.html')
 
 
-def survey(request):
-    return render(request, 'donadona/survey.html')
+def userInfo(request):
+    return render(request, 'donadona/user_info.html')
 
+
+def userDay(request):
+    if request.method == 'POST':
+        form = UserDayForm(request.POST)
+        if form.is_valid():
+            day_week = request.POST['day_week']
+            start_time = request.POST['start_time']
+            end_time = request.POST['end_time']
+            user = request.user
+
+            Day.objects.filter(user=user, day_week=day_week).delete()
+            user_day = Day.objects.create(user=user, day_week=day_week)
+            user_time = Time.objects.get_or_create(day=user_day, start_time=start_time, end_time=end_time)
+            return redirect('donadona:info')
+    else:
+        form = UserDayForm()
+    context = {'form': form}
+    return render(request, 'donadona/user_day_form.html', context)
+
+
+def userAddress(request):
+    if request.method == 'POST':
+        form = UserAddressForm(request.POST)
+        if form.is_valid():
+            city = request.POST['city']
+            si_gun_gu = request.POST['si_gun_gu']
+            addr_detail = request.POST['addr_detail']
+            user = request.user
+
+            user_addr = Address.objects.create(user=user, city=city)
+            user_addr_detail = AddressDetail.objects.create(address=user_addr, si_gun_gu=si_gun_gu, addr_detail=addr_detail)
+            return redirect('donadona:info')
+    else:
+        form = UserAddressForm()
+    context = {'form': form}
+    return render(request, 'donadona/user_address_form.html', context)
+
+
+def userAbility(request):
+    form = UserAbilityForm()
+    return render(request, 'donadona/user_ability_form.html', {'form': form})

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Team-->
+        <section class="page-section bg-light" id="team">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Update information</h2>
+                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                        <a href="{% url 'donadona:day' %}">
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/1.jpg" %}' alt="..." /> </a>
+                            <h4>날짜</h4>
+                            <p class="text-muted">도움이 가능한 요일 및 시간 입력하기<br>
+                            Update Available Dates, Addresses, and Abilities
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                        <a href="{% url 'donadona:address' %}">
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/2.jpg" %}' alt="..." /> </a>
+                            <h4>주소</h4>
+                            <p class="text-muted">도움이 가능한 위치 및 주소 입력하기<br>
+                            Update Available Dates, Addresses, and Abilities
+                            </p>
+                            </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="team-member">
+                        <a href="{% url 'donadona:ability' %}">
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/3.jpg" %}' alt="..." /></a>
+                            <h4>능력</h4>
+                            <p class="text-muted">도움이 가능한 능력 및 카테고리 입력하기<br>
+                            Update Available Dates, Addresses, and Abilities
+                            </p>
+                            </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
+                </div>
+            </div>
+        </section>
+{% endblock %}
