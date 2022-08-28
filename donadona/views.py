@@ -39,8 +39,21 @@ def userDay(request):
 
 
 def userAddress(request):
-    form = UserAddressForm()
-    return render(request, 'donadona/user_address_form.html', {'form': form})
+    if request.method == 'POST':
+        form = UserAddressForm(request.POST)
+        if form.is_valid():
+            city = request.POST['city']
+            si_gun_gu = request.POST['si_gun_gu']
+            addr_detail = request.POST['addr_detail']
+            user = request.user
+
+            user_addr = Address.objects.create(user=user, city=city)
+            user_addr_detail = AddressDetail.objects.create(address=user_addr, si_gun_gu=si_gun_gu, addr_detail=addr_detail)
+            return redirect('donadona:info')
+    else:
+        form = UserAddressForm()
+    context = {'form': form}
+    return render(request, 'donadona/user_address_form.html', context)
 
 
 def userAbility(request):
