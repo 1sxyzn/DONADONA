@@ -8,7 +8,13 @@ def main(request):
 
 
 def helpList(request):
-    return render(request, 'donadona/help_list.html')
+    help_list = Post.objects.all()
+    context = {'help_list': help_list}
+    return render(request, 'donadona/help_list.html', context)
+
+
+def help(request):
+    return render(request, 'donadona/main.html')
 
 
 def manual(request):

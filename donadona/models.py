@@ -66,13 +66,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 DAY_CHOICE = [
-        ('Monday', '월요일'),
-        ('Tuesday', '화요일'),
-        ('Wednesday', '수요일'),
-        ('Thursday', '목요일'),
-        ('Friday', '금요일'),
-        ('Saturday ', '토요일'),
-        ('Sunday ', '일요일'),
+        ('월요일', '월요일'),
+        ('화요일', '화요일'),
+        ('수요일', '수요일'),
+        ('목요일', '목요일'),
+        ('금요일', '금요일'),
+        ('토요일 ', '토요일'),
+        ('일요일 ', '일요일'),
     ]
 
 CITY_CHOICE = [
