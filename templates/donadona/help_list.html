@@ -11,6 +11,7 @@
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mb-4">
                     {% for help in help_list %}
+                    {% if help.solved_flag == False %}
                         <!-- Portfolio item 1-->
                         <div class="portfolio-item">
                             <a class="portfolio-link" data-bs-toggle="modal" href="#help{{help.id}}">
@@ -60,7 +61,13 @@
                                                         {{help.created_date}}
                                                     </li>
                                                 </ul>
-                                                <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:help' %}' "> 도움 주기 </button>
+                                                {% if user.is_authenticated %}
+                                                    {% if request.user == help.author %}
+                                                        <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:resolution' help.id %}' "> 도움 해결 </button>
+                                                    {% else %}
+                                                        <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:help' help.id %}' "> 도움 주기 </button>
+                                                    {% endif %}
+                                                {% endif %}
                                                 <button class="btn btn-primary btn-xl" data-bs-dismiss="modal" type="button">
                                                     <i class="fas fa-xmark me-1"></i>
                                                     닫기
@@ -72,6 +79,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
             </div>

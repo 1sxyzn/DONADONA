@@ -13,8 +13,12 @@ def helpList(request):
     return render(request, 'donadona/help_list.html', context)
 
 
-def help(request):
-    return render(request, 'donadona/main.html')
+def help(request, help_id):
+    return redirect('donadona:list')  # Send SMS
+
+
+def resolution(request, help_id):
+    return redirect('donadona:list')
 
 
 def manual(request):
