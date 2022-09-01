@@ -7,6 +7,10 @@ def main(request):
     return render(request, 'donadona/main.html')
 
 
+def helpList(request):
+    return render(request, 'donadona/help_list.html')
+
+
 def manual(request):
     return render(request, 'donadona/manual.html')
 
