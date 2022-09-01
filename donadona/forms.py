@@ -59,3 +59,10 @@ class UserAbilityForm(forms.Form):
     able_detail = forms.CharField(max_length=100)
 
     fields = ['able_category', 'able_detail']
+
+
+class HelpResolutionForm(forms.Form):
+    helper = forms.CharField(max_length=20)
+    time = forms.IntegerField()
+
+    fields = ['helper', 'time']

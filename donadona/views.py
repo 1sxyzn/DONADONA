@@ -18,7 +18,30 @@ def help(request, help_id):
 
 
 def resolution(request, help_id):
-    return redirect('donadona:list')
+    if request.method == 'POST':
+        form = HelpResolutionForm(request.POST)
+        if form.is_valid():
+            helper = request.POST['helper']
+            time = request.POST['time']
+
+            try:
+                user = User.objects.get(username=helper)
+            except:
+                return render(request, 'error.html')
+
+            user.hours = user.hours + int(time)
+            user.point = user.point + int(time) * 500
+            user.save()
+
+            post = Post.objects.get(pk=help_id)
+            post.solved_flag = True
+            post.helper = user
+            post.save()
+            return redirect('donadona:list')
+    else:
+        form = HelpResolutionForm()
+    context = {'form': form}
+    return render(request, 'donadona/helper_form.html', context)
 
 
 def manual(request):
