@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="text-center"><h2>Help Resolution</h2></div>
+<div class="container my-3">
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        <font color='red'>허위사실 기재 혹은 미제출 시 불이익을 받을 수 있습니다.</font>
+        <br>
+       <p>
+        <div class="form-group">
+            <label for="able_category">도와주신 분의 <Strong>아이디</Strong>를 적어주세요</label>
+            <br> {{form.helper}}
+        </div></p>
+
+        <p>
+        <div class="form-group">
+            <label for="able_detail"> 실제 도움을 해결하기 위해 <Strong>소요된 시간</Strong>을 적어주세요 </label>
+            <br> {{ form.time }} 시간
+        </div></p>
+        <br>
+        <button type="submit" class="btn btn-warning" >저장</button>
+    </form>
+</div>
+{% endblock %}

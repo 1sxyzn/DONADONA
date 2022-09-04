@@ -7,6 +7,43 @@ def main(request):
     return render(request, 'donadona/main.html')
 
 
+def helpList(request):
+    help_list = Post.objects.all()
+    context = {'help_list': help_list}
+    return render(request, 'donadona/help_list.html', context)
+
+
+def help(request, help_id):
+    return redirect('donadona:list')  # Send SMS
+
+
+def resolution(request, help_id):
+    if request.method == 'POST':
+        form = HelpResolutionForm(request.POST)
+        if form.is_valid():
+            helper = request.POST['helper']
+            time = request.POST['time']
+
+            try:
+                user = User.objects.get(username=helper)
+            except:
+                return render(request, 'error.html')
+
+            user.hours = user.hours + int(time)
+            user.point = user.point + int(time) * 500
+            user.save()
+
+            post = Post.objects.get(pk=help_id)
+            post.solved_flag = True
+            post.helper = user
+            post.save()
+            return redirect('donadona:list')
+    else:
+        form = HelpResolutionForm()
+    context = {'form': form}
+    return render(request, 'donadona/helper_form.html', context)
+
+
 def manual(request):
     return render(request, 'donadona/manual.html')
 

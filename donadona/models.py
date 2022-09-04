@@ -66,13 +66,13 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 DAY_CHOICE = [
-        ('Monday', '월요일'),
-        ('Tuesday', '화요일'),
-        ('Wednesday', '수요일'),
-        ('Thursday', '목요일'),
-        ('Friday', '금요일'),
-        ('Saturday ', '토요일'),
-        ('Sunday ', '일요일'),
+        ('월요일', '월요일'),
+        ('화요일', '화요일'),
+        ('수요일', '수요일'),
+        ('목요일', '목요일'),
+        ('금요일', '금요일'),
+        ('토요일 ', '토요일'),
+        ('일요일 ', '일요일'),
     ]
 
 CITY_CHOICE = [
@@ -144,7 +144,7 @@ class AbilityDetail(models.Model):
 
 class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author')
-    helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name='helper')
+    helper = models.ForeignKey(User, on_delete=models.CASCADE, related_name='helper', null=True, blank=True);
     title = models.CharField(max_length=100)
     content = models.CharField(max_length=1000)
     hour = models.IntegerField()  # 소요 시간
@@ -152,7 +152,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     help_day_week = models.CharField(max_length=20, choices=DAY_CHOICE)
-    help_star_time = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(24)])  # 시작 시간
+    help_start_time = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(24)])  # 시작 시간
     help_city = models.CharField(max_length=20, choices=CITY_CHOICE)
     help_si_gun_gu = models.CharField(max_length=20)
     help_addr_detail = models.CharField(max_length=100, null=True, blank=True)

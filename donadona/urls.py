@@ -5,6 +5,9 @@ app_name = 'donadona'
 
 urlpatterns = [
     path('', views.main, name='main'),
+    path('list', views.helpList, name='list'),
+    path('help/<int:help_id>', views.help, name='help'),
+    path('resolution/<int:help_id>', views.resolution, name='resolution'),
     path('manual', views.manual, name='manual'),
     path('mypage', views.mypage, name='mypage'),
 
