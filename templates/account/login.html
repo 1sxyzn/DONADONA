@@ -4,6 +4,7 @@
 <br>
 <div class="text-center"><h2>Sign In</h2></div>
 <div class="container my-3">
+<div class="d-flex justify-content-center">
     <form method="post" class="post-form" action="{% url 'account:login' %}">
         {% csrf_token %}
         {% include "form_errors.html" %}
@@ -23,5 +24,6 @@
         <button type="submit" class="btn btn-primary">로그인</button>
         <button type="button" class="btn btn-outline-warning" onclick = "location.href = '{% url 'account:signup' %}' "> 회원가입 </button>
     </form>
+</div>
 </div>
 {% endblock %}
