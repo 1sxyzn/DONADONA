@@ -108,7 +108,7 @@ def userDay(request):
             user = request.user
 
             user_day = Day.objects.get_or_create(user=user, day_week=day_week)
-            user_time = Time.objects.create(day=user_day[0], start_time=start_time, end_time=end_time)
+            Time.objects.create(day=user_day[0], start_time=start_time, end_time=end_time)
             return redirect('donadona:info')
     else:
         form = UserDayForm()
@@ -126,7 +126,7 @@ def userAddress(request):
             user = request.user
 
             user_addr = Address.objects.get_or_create(user=user, city=city)
-            user_addr_detail = AddressDetail.objects.create(address=user_addr[0], si_gun_gu=si_gun_gu, addr_detail=addr_detail)
+            AddressDetail.objects.create(address=user_addr[0], si_gun_gu=si_gun_gu, addr_detail=addr_detail)
             return redirect('donadona:info')
     else:
         form = UserAddressForm()
@@ -143,7 +143,7 @@ def userAbility(request):
             user = request.user
 
             user_able = Ability.objects.get_or_create(user=user, able_category=able_category)
-            user_able_detail = AbilityDetail.objects.create(ability=user_able[0], able_detail=able_detail)
+            AbilityDetail.objects.create(ability=user_able[0], able_detail=able_detail)
             return redirect('donadona:info')
     else:
         form = UserAbilityForm()
