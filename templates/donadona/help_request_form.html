@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- Contact-->
+        <section class="page-section" id="contact">
+            <div class="container">
+                <div class="text-center">
+                    <h2 class="section-heading text-uppercase">Help Request</h2>
+                    <h3 class="section-subheading text-muted">Request for anything you need help with.</h3>
+                </div>
+                <form method="post" class="post-form" id="contactForm">
+                {% csrf_token %}
+                {% include "form_errors.html" %}
+                    <div class="row align-items-stretch mb-5">
+                        <div class="col-md-6">
+                            <!-- date -->
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="date" id="date"
+                                    value="{{form.date.value|default_if_none:''}}">
+                            </div>
+                            <!-- time -->
+                            <div class="form-group">
+                                <input type="time" class="form-control" name="time" id="time"
+                                    value="{{form.time.value|default_if_none:''}}">
+                            </div>
+                            <!-- hour -->
+                            <div class="form-group">
+                                <input type="number" class="form-control" name="hour" id="hour"  placeholder="예상 소요 시간을 입력해주세요 : "
+                                    value="{{form.hour.value|default_if_none:''}}">
+                            </div>
+
+                            <!-- city -->
+                            <div class="form-group">
+                                <font color="white"><Strong>도/특별시/광역시를 선택해주세요 : </Strong></font>{{form.city}}
+                            </div>
+                            <!-- si_gun_gu -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="si_gun_gu" id="si_gun_gu"  placeholder="시/군/구를 입력해주세요 : "
+                                    value="{{form.si_gun_gu.value|default_if_none:''}}">
+                            </div>
+                            <!-- addr_detail -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="addr_detail" id="addr_detail"  placeholder="상세 주소를 입력해주세요 : "
+                                    value="{{form.addr_detail.value|default_if_none:''}}">
+                            </div>
+
+                            <!-- able_category -->
+                            <div class="form-group">
+                                <font color="white"><Strong>도움이 필요한 분야를 선택해주세요 : </Strong></font>{{form.able_category}}
+                            </div>
+                            <!-- able_detail -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="able_detail" id="able_detail"  placeholder="도움이 필요한 상세 분야를 입력해주세요 : "
+                                    value="{{form.able_detail.value|default_if_none:''}}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- title -->
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="title" id="title"  placeholder="제목을 입력해주세요"
+                                    value="{{form.title.value|default_if_none:''}}">
+                            </div>
+                            <!-- content -->
+                            <div class="form-group form-group-textarea mb-md-0">
+                                <textarea class="form-control" name="content" id="content" placeholder="내용을 입력해주세요">{{ form.content.value|default_if_none:'' }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="text-center">
+                    <button class="btn btn-primary btn-xl" type="submit">도움 요청</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+{% endblock %}

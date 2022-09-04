@@ -1,6 +1,13 @@
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
+from datetime import datetime, date
+
+
+def day_week_calc(date):
+    days = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
+    day = date.weekday()
+    return(days[day])
 
 
 def main(request):
@@ -11,6 +18,41 @@ def helpList(request):
     help_list = Post.objects.all()
     context = {'help_list': help_list}
     return render(request, 'donadona/help_list.html', context)
+
+
+def helpRequest(request):
+    if request.method == 'POST':
+        form = HelpRequestForm(request.POST)
+        if form.is_valid():
+            title = request.POST['title']
+            content = request.POST['content']
+            hour = request.POST['hour']
+
+            help_date = request.POST['date']
+            dates = help_date.split('-')
+            year = int(dates[0])
+            month = int(dates[1])
+            day = int(dates[2])
+            help_day_week = day_week_calc(date(year, month, day))
+
+            help_time = request.POST['time']
+            help_city = request.POST['city']
+            help_si_gun_gu = request.POST['si_gun_gu']
+            help_addr_detail = request.POST['addr_detail']
+            help_able_category = request.POST['able_category']
+            help_able_detail = request.POST['able_detail']
+
+            Post.objects.create(
+                author=request.user, title=title, content=content,
+                hour=hour, help_day_week=help_day_week, help_date=help_date,  help_time=help_time,
+                help_city=help_city, help_si_gun_gu=help_si_gun_gu, help_addr_detail=help_addr_detail,
+                help_able_category=help_able_category, help_able_detail=help_able_detail
+            )
+            return redirect('donadona:list')
+    else:
+        form = HelpRequestForm()
+    context = {'form': form}
+    return render(request, 'donadona/help_request_form.html', context)
 
 
 def help(request, help_id):

@@ -66,3 +66,24 @@ class HelpResolutionForm(forms.Form):
     time = forms.IntegerField()
 
     fields = ['helper', 'time']
+
+
+class HelpRequestForm(forms.Form):
+    title = forms.CharField(max_length=100)
+    content = forms.CharField(max_length=1000)
+
+    hour = forms.IntegerField()
+    date = forms.DateField()
+    time = forms.TimeField()
+
+    city = forms.ChoiceField(choices=CITY_CHOICE)
+    si_gun_gu = forms.CharField(max_length=20)
+    addr_detail = forms.CharField(max_length=100)
+
+    able_category = forms.ChoiceField(choices=ABLE_CHOICE)
+    able_detail = forms.CharField(max_length=100)
+
+    fields = ['title', 'content',
+              'hour', 'date', 'time',
+              'city', 'si_gun_gu', 'addr_detail',
+              'able_category', 'able_detail']
