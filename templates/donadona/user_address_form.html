@@ -4,6 +4,7 @@
 <br>
 <div class="text-center"><h2>Update Addresses</h2></div>
 <div class="container my-3">
+<div class="d-flex justify-content-center">
     <form method="post" class="post-form" action="{% url 'donadona:address' %}">
         {% csrf_token %}
        <p>
@@ -11,20 +12,27 @@
             <label for="city">도/특별시/광역시</label>
             <br> {{form.city}}
         </div></p>
-
         <p>
         <div class="form-group">
             <label for="si_gun_gu"> 시/군/구 </label>
-            <br> {{ form.si_gun_gu}}
-        </div></p>
+            <div class="form-group">
+                <input type="text" class="form-control" name="si_gun_gu" id="si_gun_gu"  placeholder="ex) 서대문구"
+                    value="{{form.si_gun_gu.value|default_if_none:''}}">
+            </div>
+        </div>
+        </p>
 
         <p>
         <div class="form-group">
             <label for="addr_detail"> 상세 주소 </label>
-            <br> {{ form.addr_detail}}
-        </div></p>
-
+            <div class="form-group">
+                <input type="text" class="form-control" name="addr_detail" id="addr_detail"  placeholder="ex) 대현동 11-1"
+                    value="{{form.addr_detail.value|default_if_none:''}}">
+            </div>
+        </div>
+        </p>
         <button type="submit" class="btn btn-warning" >저장</button>
     </form>
+</div>
 </div>
 {% endblock %}
