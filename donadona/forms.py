@@ -69,7 +69,7 @@ class HelpResolutionForm(forms.Form):
 
 
 class HelpRequestForm(forms.Form):
-    title = forms.CharField(max_length=100)
+    title = forms.CharField(max_length=20)
     content = forms.CharField(max_length=1000)
 
     hour = forms.IntegerField()
