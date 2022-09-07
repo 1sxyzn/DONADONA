@@ -12,7 +12,10 @@ urlpatterns = [
 
     path('manual', views.manual, name='manual'),
     path('ranking', views.ranking, name='ranking'),
+
     path('mypage', views.mypage, name='mypage'),
+    path('mypage/help/list', views.mypageHelp, name='myhelp'),
+    path('mypage/info', views.mypageInfo, name='myinfo'),
 
     path('info', views.userInfo, name='info'),
     path('info/day', views.userDay, name='day'),

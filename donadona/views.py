@@ -202,6 +202,17 @@ def mypage(request):
     return render(request, 'donadona/mypage.html')
 
 
+def mypageHelp(request):
+    posts = Post.objects.filter(author=request.user)
+    helper = Post.objects.filter(helper=request.user)
+    context = {'posts': posts, 'helper': helper}
+    return render(request, 'donadona/mypage_help.html', context)
+
+
+def mypageInfo(request):
+    return render(request, 'donadona/mypage_info.html')
+
+
 def userInfo(request):
     return render(request, 'donadona/user_info.html')
 
