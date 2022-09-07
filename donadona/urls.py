@@ -11,6 +11,7 @@ urlpatterns = [
     path('resolution/<int:help_id>', views.resolution, name='resolution'),  # 도움 해결
 
     path('manual', views.manual, name='manual'),
+    path('ranking', views.ranking, name='ranking'),
     path('mypage', views.mypage, name='mypage'),
 
     path('info', views.userInfo, name='info'),
