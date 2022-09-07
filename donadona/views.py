@@ -33,7 +33,7 @@ def make_signature():
 def day_week_calc(date):
     days = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
     day = date.weekday()
-    return (days[day])
+    return days[day]
 
 
 def main(request):
@@ -62,6 +62,9 @@ def helpRequest(request):
             help_day_week = day_week_calc(date(year, month, day))
 
             help_time = request.POST['time']
+            hour_minute = help_time.split(':')
+            help_start_time = int(hour_minute[0])
+
             help_city = request.POST['city']
             help_si_gun_gu = request.POST['si_gun_gu']
             help_addr_detail = request.POST['addr_detail']
@@ -74,6 +77,45 @@ def helpRequest(request):
                 help_city=help_city, help_si_gun_gu=help_si_gun_gu, help_addr_detail=help_addr_detail,
                 help_able_category=help_able_category, help_able_detail=help_able_detail
             )
+
+            users = User.objects.filter(alarm=True)
+            helper_phone = []
+            for user in users:
+                if request.user != user:
+                    try:
+                        addr = Address.objects.get(user=user, city=help_city)
+                        AddressDetail.objects.filter(address=addr, si_gun_gu=help_si_gun_gu)
+                        Ability.objects.get(user=user, able_category=help_able_category)
+                        day = Day.objects.get(user=user, day_week=help_day_week)
+                        times = Time.objects.filter(day=day)
+                        for t in times:
+                            if t.start_time <= help_start_time and t.end_time >= (help_start_time + int(hour)):
+                                helper_phone.append(user.phone)
+                    except:
+                        pass
+
+            for phone_num in helper_phone:
+                header = {
+                    "Content-Type": "application/json; charset=utf-8",
+                    "x-ncp-apigw-timestamp": timestamp,
+                    "x-ncp-iam-access-key": config('SENS_ACCESS_KEY'),
+                    "x-ncp-apigw-signature-v2": make_signature(),
+                }
+
+                data = {
+                    "type": "SMS",
+                    "from": config('SENS_PHONE_NUM'),
+                    "content": "[도나도나]",  # max 80byte, 기본 메시지 제목
+                    "messages": [
+                        {
+                            "to": phone_num,  # 수신 번호
+                            "content": str(request.user.nickname) + "님께서 도움을 요청했어요!\n"  # 개별 메시지 내용
+                                       + "[요청] " + title + "\n"
+                                       + "[날짜] " + help_date
+                        }
+                    ]
+                }
+                res = requests.post(url + uri, headers=header, data=json.dumps(data))
             return redirect('donadona:list')
     else:
         form = HelpRequestForm()
@@ -83,7 +125,8 @@ def helpRequest(request):
 
 def help(request, help_id):  # 도움 주기
 
-    phone_num = Post.objects.get(pk=help_id).author.phone
+    post = Post.objects.get(pk=help_id)
+    phone_num = post.author.phone
 
     header = {
         "Content-Type": "application/json; charset=utf-8",
@@ -93,20 +136,28 @@ def help(request, help_id):  # 도움 주기
     }
 
     data = {
-        "type": "SMS",
+        "type": "LMS",
         "from": config('SENS_PHONE_NUM'),
         "content": "[도나도나]",  # max 80byte, 기본 메시지 제목
         "messages": [
             {
                 "to": phone_num,  # 수신 번호
-                "content": "[도나도나] ID : " + str(request.user) + "\n"
-                           + str(request.user.nickname) + "님께서 도움을 주시기로 하셨어요!\n"
-                           + str(request.user.phone) + "으로 연락해보세요!"  # 개별 메시지 내용
+                "content": str(request.user.nickname) + "님께서 도와주신대요!\n"
+                            + "[번호] " + str(request.user.phone) + "\n"
+                            + "[아이디] " + str(request.user)
+
+                            + "\n\n" + str(post.help_able_detail) + "에 관련된 [ " + str(post.title) + " ] 를 도와주실 수 있으시대요.\n"
+                            + "연락을 통해 도움을 받아보세요 :)\n\n"
+                            + "※ 도움을 받으신 후, 해결되었다면 게시글 하단의 \"도움 해결\" 버튼을 눌러주세요.\n"
+                            + "※ \"도움 해결\" 버튼을 누르지 않으시거나 허위사실을 기재하시면 서비스를 이용하시는 데에 불이익이 발생할 수 있습니다."
+                # SMS 용
+                # "content": str(request.user.nickname) + "님께서 도와주신대요\n"
+                #            + str(request.user.phone) + "로 연락해보세요!\n"
+                #            + "ID: " + str(request.user)
             }
         ]
     }
     res = requests.post(url + uri, headers=header, data=json.dumps(data))
-    print(res.text)
     return redirect('donadona:list')  # Send SMS
 
 
