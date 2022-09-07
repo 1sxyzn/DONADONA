@@ -1,13 +1,39 @@
+import json
+
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 from datetime import datetime, date
+import hashlib
+import hmac
+import base64
+import requests
+import time
+from decouple import config
+
+timestamp = int(time.time() * 1000)
+timestamp = str(timestamp)
+access_key = config('SENS_ACCESS_KEY')
+url = "https://sens.apigw.ntruss.com"
+uri = "/sms/v2/services/" + config('SENS_SERVICE_ID') + "/messages"
+
+
+def make_signature():
+    secret_key = config('SENS_SECRET_KEY')
+    secret_key = bytes(secret_key, 'UTF-8')
+
+    method = "POST"
+
+    message = method + " " + uri + "\n" + timestamp + "\n" + access_key
+    message = bytes(message, 'UTF-8')
+    signingKey = base64.b64encode(hmac.new(secret_key, message, digestmod=hashlib.sha256).digest())
+    return signingKey
 
 
 def day_week_calc(date):
     days = ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일']
     day = date.weekday()
-    return(days[day])
+    return (days[day])
 
 
 def main(request):
@@ -44,7 +70,7 @@ def helpRequest(request):
 
             Post.objects.create(
                 author=request.user, title=title, content=content,
-                hour=hour, help_day_week=help_day_week, help_date=help_date,  help_time=help_time,
+                hour=hour, help_day_week=help_day_week, help_date=help_date, help_time=help_time,
                 help_city=help_city, help_si_gun_gu=help_si_gun_gu, help_addr_detail=help_addr_detail,
                 help_able_category=help_able_category, help_able_detail=help_able_detail
             )
@@ -55,7 +81,32 @@ def helpRequest(request):
     return render(request, 'donadona/help_request_form.html', context)
 
 
-def help(request, help_id):
+def help(request, help_id):  # 도움 주기
+
+    phone_num = Post.objects.get(pk=help_id).author.phone
+
+    header = {
+        "Content-Type": "application/json; charset=utf-8",
+        "x-ncp-apigw-timestamp": timestamp,
+        "x-ncp-iam-access-key": config('SENS_ACCESS_KEY'),
+        "x-ncp-apigw-signature-v2": make_signature(),
+    }
+
+    data = {
+        "type": "SMS",
+        "from": config('SENS_PHONE_NUM'),
+        "content": "[도나도나]",  # max 80byte, 기본 메시지 제목
+        "messages": [
+            {
+                "to": phone_num,  # 수신 번호
+                "content": "[도나도나] ID : " + str(request.user) + "\n"
+                           + str(request.user.nickname) + "님께서 도움을 주시기로 하셨어요!\n"
+                           + str(request.user.phone) + "으로 연락해보세요!"  # 개별 메시지 내용
+            }
+        ]
+    }
+    res = requests.post(url + uri, headers=header, data=json.dumps(data))
+    print(res.text)
     return redirect('donadona:list')  # Send SMS
 
 
