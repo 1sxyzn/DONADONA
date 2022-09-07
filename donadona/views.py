@@ -40,6 +40,12 @@ def main(request):
     return render(request, 'donadona/main.html')
 
 
+def ranking(request):
+    users = User.objects.order_by('-hours')
+    context = {'users': users}
+    return render(request, 'donadona/ranking.html', context)
+
+
 def helpList(request):
     help_list = Post.objects.all()
     context = {'help_list': help_list}
