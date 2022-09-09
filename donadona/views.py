@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
@@ -52,6 +53,7 @@ def helpList(request):
     return render(request, 'donadona/help_list.html', context)
 
 
+@login_required(login_url='account:login')
 def helpRequest(request):
     if request.method == 'POST':
         form = HelpRequestForm(request.POST)
@@ -129,6 +131,7 @@ def helpRequest(request):
     return render(request, 'donadona/help_request_form.html', context)
 
 
+@login_required(login_url='account:login')
 def help(request, help_id):  # 도움 주기
 
     post = Post.objects.get(pk=help_id)
@@ -149,13 +152,13 @@ def help(request, help_id):  # 도움 주기
             {
                 "to": phone_num,  # 수신 번호
                 "content": str(request.user.nickname) + "님께서 도와주신대요!\n"
-                            + "[번호] " + str(request.user.phone) + "\n"
-                            + "[아이디] " + str(request.user)
+                           + "[번호] " + str(request.user.phone) + "\n"
+                           + "[아이디] " + str(request.user)
 
-                            + "\n\n" + str(post.help_able_detail) + "에 관련된 [ " + str(post.title) + " ] 를 도와주실 수 있으시대요.\n"
-                            + "연락을 통해 도움을 받아보세요 :)\n\n"
-                            + "※ 도움을 받으신 후, 해결되었다면 게시글 하단의 \"도움 해결\" 버튼을 눌러주세요.\n"
-                            + "※ \"도움 해결\" 버튼을 누르지 않으시거나 허위사실을 기재하시면 서비스를 이용하시는 데에 불이익이 발생할 수 있습니다."
+                           + "\n\n" + str(post.help_able_detail) + "에 관련된 [ " + str(post.title) + " ] 를 도와주실 수 있으시대요.\n"
+                           + "연락을 통해 도움을 받아보세요 :)\n\n"
+                           + "※ 도움을 받으신 후, 해결되었다면 게시글 하단의 \"도움 해결\" 버튼을 눌러주세요.\n"
+                           + "※ \"도움 해결\" 버튼을 누르지 않으시거나 허위사실을 기재하시면 서비스를 이용하시는 데에 불이익이 발생할 수 있습니다."
                 # SMS 용
                 # "content": str(request.user.nickname) + "님께서 도와주신대요\n"
                 #            + str(request.user.phone) + "로 연락해보세요!\n"
@@ -167,6 +170,7 @@ def help(request, help_id):  # 도움 주기
     return redirect('donadona:list')  # Send SMS
 
 
+@login_required(login_url='account:login')
 def resolution(request, help_id):
     if request.method == 'POST':
         form = HelpResolutionForm(request.POST)
@@ -198,10 +202,12 @@ def manual(request):
     return render(request, 'donadona/manual.html')
 
 
+@login_required(login_url='account:login')
 def mypage(request):
     return render(request, 'donadona/mypage.html')
 
 
+@login_required(login_url='account:login')
 def mypageHelp(request):
     posts = Post.objects.filter(author=request.user)
     helper = Post.objects.filter(helper=request.user)
@@ -209,6 +215,7 @@ def mypageHelp(request):
     return render(request, 'donadona/mypage_help.html', context)
 
 
+@login_required(login_url='account:login')
 def mypageInfo(request):
     times = Time.objects.filter(day__user=request.user)
     addresses = AddressDetail.objects.filter(address__user=request.user)
@@ -217,10 +224,12 @@ def mypageInfo(request):
     return render(request, 'donadona/mypage_info.html', context)
 
 
+@login_required(login_url='account:login')
 def userInfo(request):
     return render(request, 'donadona/user_info.html')
 
 
+@login_required(login_url='account:login')
 def userDay(request):
     if request.method == 'POST':
         form = UserDayForm(request.POST)
@@ -239,6 +248,7 @@ def userDay(request):
     return render(request, 'donadona/user_day_form.html', context)
 
 
+@login_required(login_url='account:login')
 def userAddress(request):
     if request.method == 'POST':
         form = UserAddressForm(request.POST)
@@ -257,6 +267,7 @@ def userAddress(request):
     return render(request, 'donadona/user_address_form.html', context)
 
 
+@login_required(login_url='account:login')
 def userAbility(request):
     if request.method == 'POST':
         form = UserAbilityForm(request.POST)
