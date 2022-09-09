@@ -210,7 +210,11 @@ def mypageHelp(request):
 
 
 def mypageInfo(request):
-    return render(request, 'donadona/mypage_info.html')
+    times = Time.objects.filter(day__user=request.user)
+    addresses = AddressDetail.objects.filter(address__user=request.user)
+    abilities = AbilityDetail.objects.filter(ability__user=request.user)
+    context = {'times': times, 'addresses': addresses, 'abilities': abilities}
+    return render(request, 'donadona/mypage_info.html', context)
 
 
 def userInfo(request):
