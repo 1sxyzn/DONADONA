@@ -16,6 +16,7 @@ urlpatterns = [
     path('mypage', views.mypage, name='mypage'),
     path('mypage/help/list', views.mypageHelp, name='myhelp'),
     path('mypage/info', views.mypageInfo, name='myinfo'),
+    path('mypage/info/<str:obj>/<int:pk>', views.mypageObj, name='myobj'),
 
     path('info', views.userInfo, name='info'),
     path('info/day', views.userDay, name='day'),

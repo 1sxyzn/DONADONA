@@ -17,6 +17,8 @@
                             <div class="card-body">
                                 <div class="card-text">
                                 {{time.day.day_week}}  {{time.start_time}}시 ~ {{time.end_time}}시
+                                <button class="delete btn btn-sm btn-outline-danger" onclick = "location.href = '{% url 'donadona:myobj' 'time' time.id %}' " style="float: right;">
+                                <input type="hidden" name="_method" value="DELETE"/> 삭제 </button>
                                 </div>
                             </div>
                         </div>
@@ -30,6 +32,8 @@
                             <div class="card-body">
                                 <div class="card-text">
                                 {{address.address.city}} {{address.si_gun_gu}} {{address.addr_detail}}
+                                <button class="delete btn btn-sm btn-outline-danger" onclick = "location.href = '{% url 'donadona:myobj' 'address' address.id %}' " style="float: right;">
+                                <input type="hidden" name="_method" value="DELETE"/> 삭제 </button>
                                 </div>
                             </div>
                         </div>
@@ -43,6 +47,8 @@
                             <div class="card-body">
                                 <div class="card-text">
                                 [ {{ability.ability.able_category}} ]  {{ability.able_detail}}
+                                <button class="delete btn btn-sm btn-outline-danger" onclick = "location.href = '{% url 'donadona:myobj' 'ability' ability.id %}' " style="float: right;">
+                                <input type="hidden" name="_method" value="DELETE"/> 삭제 </button>
                                 </div>
                             </div>
                         </div>
