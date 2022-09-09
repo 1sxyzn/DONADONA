@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <section class="page-section bg-light" id="portfolio">
+            <div class="container">
+                <div class="text-center">
+                <p>
+                    <h3 class="section-heading text-uppercase">나의 도움 시간 : {{request.user.hours}}시간</h3>
+                    <h3 class="section-heading text-uppercase">나의 포인트 : {{request.user.point}}포인트</h3> <br><br>
+                </p>
+                    <h2 class="section-heading text-uppercase">내가 요청한 도움</h2>
+                    <h3 class="section-subheading text-muted">This is a list of help I have requested.</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                    {% for help in posts %}
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#help{{help.id}}">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src='{% static "assets/img/portfolio/1.jpg" %}' alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">{{help.title}}</div>
+                                <div class="portfolio-caption-subheading text-muted"><Strong>{{help.help_city}} {{help.help_si_gun_gu}}</Strong><br>{{help.help_able_category}} 분야의 {{help.help_able_detail}} 관련</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                    <!-- Portfolio Modals-->
+                    <!-- Portfolio item 1 modal popup-->
+                    <div class="portfolio-modal modal fade" id="help{{help.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-bs-dismiss="modal"><img src='{% static "assets/img/close-icon.svg" %}' alt="Close modal" /></div>
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8">
+                                            <div class="modal-body">
+                                                <!-- Project details-->
+                                                <h2 class="text-uppercase">{{help.title}}</h2>
+                                                <p class="item-intro text-muted"><Strong>{{help.help_city}} {{help.help_si_gun_gu}}</Strong>
+                                                <br> {{help.help_able_category}} 분야의 {{help.help_able_detail}} 관련</p>
+                                                <!-- <img class="img-fluid d-block mx-auto" src='{% static "assets/img/portfolio/1.jpg" %}' alt="..." /> -->
+                                                <p>{{help.content}}</p>
+                                                <ul class="list-inline">
+                                                    <li>
+                                                        <strong>작성자 : </strong>
+                                                        {{help.author.nickname}}
+                                                    </li>
+                                                    <li>
+                                                        <strong>도움이 필요한 날짜 : </strong>
+                                                        {{help.help_date}} {{help.help_day_week}}
+                                                    </li>
+                                                    <li>
+                                                        <strong>도움이 필요한 시간 : </strong>
+                                                        {{help.help_time}} 부터 약 {{help.hour}}시간
+                                                    </li>
+                                                    <li>
+                                                        <strong>도움 요청 날짜 : </strong>
+                                                        {{help.created_date}}
+                                                    </li>
+                                                </ul>
+                                                {% if user.is_authenticated %}
+                                                    {% if request.user == help.author and help.helper == None %}
+                                                        <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:resolution' help.id%}' "> 도움 해결 </button>
+                                                    {% elif request.user != help.author and help.helper == None %}
+                                                        <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:help' help.id %}' "> 도움 주기 </button>
+                                                    {% endif %}
+                                                {% endif %}
+                                                <button class="btn btn-primary btn-xl" data-bs-dismiss="modal" type="button">
+                                                    <i class="fas fa-xmark me-1"></i>
+                                                    닫기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-center"><br><br>
+                <h2 class="section-heading text-uppercase">내가 도와준 도움</h2>
+                   <h3 class="section-subheading text-muted">This is a list of the help I have helped.</h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                    {% for help in helper %}
+                        <!-- Portfolio item 1-->
+                        <div class="portfolio-item">
+                            <a class="portfolio-link" data-bs-toggle="modal" href="#help{{help.id}}">
+                                <div class="portfolio-hover">
+                                    <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
+                                </div>
+                                <img class="img-fluid" src='{% static "assets/img/portfolio/1.jpg" %}' alt="..." />
+                            </a>
+                            <div class="portfolio-caption">
+                                <div class="portfolio-caption-heading">{{help.title}}</div>
+                                <div class="portfolio-caption-subheading text-muted"><Strong>{{help.help_city}} {{help.help_si_gun_gu}}</Strong><br>{{help.help_able_category}} 분야의 {{help.help_able_detail}} 관련</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-6 mb-4">
+                    <!-- Portfolio Modals-->
+                    <!-- Portfolio item 1 modal popup-->
+                    <div class="portfolio-modal modal fade" id="help{{help.id}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="close-modal" data-bs-dismiss="modal"><img src='{% static "assets/img/close-icon.svg" %}' alt="Close modal" /></div>
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-8">
+                                            <div class="modal-body">
+                                                <!-- Project details-->
+                                                <h2 class="text-uppercase">{{help.title}}</h2>
+                                                <p class="item-intro text-muted"><Strong>{{help.help_city}} {{help.help_si_gun_gu}}</Strong>
+                                                <br> {{help.help_able_category}} 분야의 {{help.help_able_detail}} 관련</p>
+                                                <!-- <img class="img-fluid d-block mx-auto" src='{% static "assets/img/portfolio/1.jpg" %}' alt="..." /> -->
+                                                <p>{{help.content}}</p>
+                                                <ul class="list-inline">
+                                                    <li>
+                                                        <strong>작성자 : </strong>
+                                                        {{help.author.nickname}}
+                                                    </li>
+                                                    <li>
+                                                        <strong>도움이 필요한 날짜 : </strong>
+                                                        {{help.help_date}} {{help.help_day_week}}
+                                                    </li>
+                                                    <li>
+                                                        <strong>도움이 필요한 시간 : </strong>
+                                                        {{help.help_time}} 부터 약 {{help.hour}}시간
+                                                    </li>
+                                                    <li>
+                                                        <strong>도움 요청 날짜 : </strong>
+                                                        {{help.created_date}}
+                                                    </li>
+                                                </ul>
+                                                {% if user.is_authenticated %}
+                                                    {% if request.user == help.author and help.helper == None %}
+                                                        <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:resolution' help.id%}' "> 도움 해결 </button>
+                                                    {% elif request.user != help.author and help.helper == None %}
+                                                        <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:help' help.id %}' "> 도움 주기 </button>
+                                                    {% endif %}
+                                                {% endif %}
+                                                <button class="btn btn-primary btn-xl" data-bs-dismiss="modal" type="button">
+                                                    <i class="fas fa-xmark me-1"></i>
+                                                    닫기
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </section>
+{% endblock %}

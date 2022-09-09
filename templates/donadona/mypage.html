@@ -13,31 +13,31 @@
                         <div class="team-member">
                         <a href="{% url 'donadona:info' %}">
                             <img class="mx-auto rounded-circle" src='{% static "assets/img/team/1.jpg" %}' alt="..." /> </a>
-                            <h4>도움정보 관리</h4>
-                            <p class="text-muted">도움이 가능한 시간대 · 위치 · 능력 정보 변경하기<br>
-                            Update Available Dates, Addresses, and Abilities
+                            <h4>도움정보 추가</h4>
+                            <p class="text-muted">도움 가능한 날짜 · 지역 · 능력 정보 추가하기<br>
+                            Add My Available Dates, Addresses, and Abilities
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/2.jpg" %}' alt="..." />
-                            <h4>개인정보 수정</h4>
-                            <p class="text-muted">Lead Marketer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
+                        <a href="{% url 'donadona:myinfo' %}">
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/2.jpg" %}' alt="..." /></a>
+                            <h4>도움정보 확인</h4>
+                            <p class="text-muted">도움 가능한 날짜 · 지역 · 능력 정보 확인하기<br>
+                            Check My Available Dates, Addresses, and Abilities
+                            </p>
+                            </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
-                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/3.jpg" %}' alt="..." />
-                            <h4>나의 도움 이력 보기</h4>
-                            <p class="text-muted">Lead Developer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
+                        <a href="{% url 'donadona:myhelp' %}">
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/3.jpg" %}' alt="..." /></a>
+                            <h4>나의 도움 이력</h4>
+                            <p class="text-muted">나의 도움 이력 모아보기<br>
+                            Check My DONADONA
+                            </p>
+                            </div>
                     </div>
                 </div>
                 <div class="row">

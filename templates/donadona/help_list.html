@@ -62,9 +62,9 @@
                                                     </li>
                                                 </ul>
                                                 {% if user.is_authenticated %}
-                                                    {% if request.user == help.author %}
+                                                    {% if request.user == help.author and help.helper == None %}
                                                         <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:resolution' help.id%}' "> 도움 해결 </button>
-                                                    {% else %}
+                                                    {% elif request.user != help.author and help.helper == None %}
                                                         <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'donadona:help' help.id %}' "> 도움 주기 </button>
                                                     {% endif %}
                                                 {% endif %}
