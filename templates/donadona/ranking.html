@@ -5,18 +5,19 @@
         <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Ranking</h2>
-                    <h3 class="section-subheading text-muted">다른 사람을 많이 도와주신 분들입니다.</h3>
+                    <h2 class="section-heading text-uppercase">도움 랭킹</h2>
+                    <h3 class="section-subheading text-muted">They are people who have helped others a lot.</h3>
                 </div>
                 <ul class="timeline">
                 {% for user in users %}
                 {% if user.hours != 0 %}
                     {% if forloop.counter|mod:2 == 0%}
                         <li>
+                            <div class="timeline-image"><img class="rounded-circle img-fluid" src='{% static "assets/img/about/2.jpg" %}' alt="..." /></div>
                     {% else %}
                         <li class="timeline-inverted">
-                    {% endif %}
                             <div class="timeline-image"><img class="rounded-circle img-fluid" src='{% static "assets/img/about/1.jpg" %}' alt="..." /></div>
+                    {% endif %}
                             <div class="timeline-panel">
                                 <div class="timeline-heading">
                                     <h4>🎉 {{forloop.counter}}등</h4>
