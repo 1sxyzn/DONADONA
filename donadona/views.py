@@ -225,6 +225,18 @@ def mypageInfo(request):
 
 
 @login_required(login_url='account:login')
+def mypageObj(request, obj, pk):
+    if obj == 'time':
+        target = Time.objects.get(pk=pk)
+    elif obj == 'address':
+        target = AddressDetail.objects.get(pk=pk)
+    else:
+        target = AbilityDetail.objects.get(pk=pk)
+    target.delete()
+    return redirect('donadona:myinfo')
+
+
+@login_required(login_url='account:login')
 def userInfo(request):
     return render(request, 'donadona/user_info.html')
 

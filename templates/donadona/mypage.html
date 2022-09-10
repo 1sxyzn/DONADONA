@@ -5,47 +5,50 @@
         <section class="page-section bg-light" id="team">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Update information</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">내 정보 관리</h2>
+                    <h3 class="section-subheading text-muted">Add, Check or Delete my information.</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="team-member">
                         <a href="{% url 'donadona:info' %}">
-                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/1.jpg" %}' alt="..." /> </a>
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/plus.png" %}' alt="..." /> </a>
                             <h4>도움정보 추가</h4>
                             <p class="text-muted">도움 가능한 날짜 · 지역 · 능력 정보 추가하기<br>
-                            Add My Available Dates, Addresses, and Abilities
+                            Add My Available Dates, Addresses, and Abilities.
                             </p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
                         <a href="{% url 'donadona:myinfo' %}">
-                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/2.jpg" %}' alt="..." /></a>
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/check.png" %}' alt="..." /></a>
                             <h4>도움정보 확인</h4>
                             <p class="text-muted">도움 가능한 날짜 · 지역 · 능력 정보 확인하기<br>
-                            Check My Available Dates, Addresses, and Abilities
+                            Check My Available Dates, Addresses, and Abilities.
                             </p>
-                            </div>
+                        </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="team-member">
                         <a href="{% url 'donadona:myhelp' %}">
-                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/3.jpg" %}' alt="..." /></a>
+                            <img class="mx-auto rounded-circle" src='{% static "assets/img/team/help.png" %}' alt="..." /></a>
                             <h4>나의 도움 이력</h4>
                             <p class="text-muted">나의 도움 이력 모아보기<br>
-                            Check My DONADONA
+                            Check My DONADONA.
                             </p>
-                            </div>
+                        </div>
                     </div>
                 </div>
+                <br>
                 <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
+                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">
+                     정보를 추가하고, 확인하고, 삭제하세요.<br>
+                     정보를 정확히 입력하시면, 도움을 요청하거나 나눠줄 때 많은 도움이 됩니다.</p></div>
                 </div>
             </div>
             <div class="text-center">
-                <button class="btn btn-primary" onclick = "location.href = '{% url 'account:logout' %}' "> 로그아웃 </button>
+                <button class="btn btn-primary btn-xl" onclick = "location.href = '{% url 'account:logout' %}' "> 로그아웃 </button>
             </div>
         </section>
 {% endblock %}
