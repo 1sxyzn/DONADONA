@@ -145,7 +145,7 @@ def help(request, help_id):  # 도움 주기
     }
 
     data = {
-        "type": "LMS",
+        "type": "SMS",
         "from": config('SENS_PHONE_NUM'),
         "content": "[도나도나]",  # max 80byte, 기본 메시지 제목
         "messages": [
