@@ -151,18 +151,20 @@ def help(request, help_id):  # 도움 주기
         "messages": [
             {
                 "to": phone_num,  # 수신 번호
-                "content": str(request.user.nickname) + "님께서 도와주신대요!\n"
-                           + "[번호] " + str(request.user.phone) + "\n"
-                           + "[아이디] " + str(request.user)
+                # LMS 용
+                # "content": str(request.user.nickname) + "님께서 도와주신대요!\n"
+                #            + "[번호] " + str(request.user.phone) + "\n"
+                #            + "[아이디] " + str(request.user)
+                #
+                #            + "\n\n" + str(post.help_able_detail) + "에 관련된 [ " + str(post.title) + " ] 를 도와주실 수 있으시대요.\n"
+                #            + "연락을 통해 도움을 받아보세요 :)\n\n"
+                #            + "※ 도움을 받으신 후, 해결되었다면 게시글 하단의 \"도움 해결\" 버튼을 눌러주세요.\n"
+                #            + "※ \"도움 해결\" 버튼을 누르지 않으시거나 허위사실을 기재하시면 서비스를 이용하시는 데에 불이익이 발생할 수 있습니다."
 
-                           + "\n\n" + str(post.help_able_detail) + "에 관련된 [ " + str(post.title) + " ] 를 도와주실 수 있으시대요.\n"
-                           + "연락을 통해 도움을 받아보세요 :)\n\n"
-                           + "※ 도움을 받으신 후, 해결되었다면 게시글 하단의 \"도움 해결\" 버튼을 눌러주세요.\n"
-                           + "※ \"도움 해결\" 버튼을 누르지 않으시거나 허위사실을 기재하시면 서비스를 이용하시는 데에 불이익이 발생할 수 있습니다."
                 # SMS 용
-                # "content": str(request.user.nickname) + "님께서 도와주신대요\n"
-                #            + str(request.user.phone) + "로 연락해보세요!\n"
-                #            + "ID: " + str(request.user)
+                "content": str(request.user.nickname) + "님께서 도와주신대요\n"
+                           + str(request.user.phone) + "로 연락해보세요!\n"
+                           + "ID: " + str(request.user)
             }
         ]
     }
